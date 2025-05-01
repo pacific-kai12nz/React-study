@@ -23,6 +23,17 @@
 JSXの書き方：
 ```jsx
 // ここにJSXコードを記述してください
+const userProfile = (
+   <div className="container">
+   <h1>ユーザープロフィール</h1>
+   <div className="profile-info">
+   <h2>山田太郎</h2>
+   <p>職業: エンジニア</p>
+   <p>年齢: 28歳</p>
+   </div>
+   </div>
+   </div>
+);
 ```
 
 ## 問題2：条件付きレンダリング
@@ -37,7 +48,11 @@ JSXの書き方：
 // age という変数があると仮定して、三項演算子を使って条件分岐するJSXを記述してください
 const age = 28;
 
-const ageMessage = 
+const ageMessage = (
+   <div>
+   {age >= 18 ? <p>成人</p> : <p>未成年</p>}
+   </div>
+);
 ```
 
 ## 問題3：シンプルなコンポーネントの作成
@@ -54,6 +69,33 @@ const ageMessage =
 ```tsx
 // ここにUserGreetingコンポーネントを記述してください
 // TypeScriptの型定義も含めてください
+const userGreetingProps = {
+   name: string;
+   timeOfDay: string; 
+};
+const UserGreeting: React.FC<UserGreetingProps> = ({name, timeOfDay}) => {
+   let greeting: string;
+
+   switch (timeOfDay) {
+      case 'morning':
+         greeting = 'おはようございます';
+         break;
+         case 'afternoon':
+            greeting = 'こんにちは';
+            break;
+            case 'evening':
+               greeting = 'こんばんは';
+               break;
+               default:
+                  greeting = 'ようこそ';
+   }
+
+   retun (
+      <div>
+      <p>{greeting},{name}さん！</p>
+      </div>
+   );
+};
 ```
 
 ## 問題4：コンポーネントの組み合わせ
@@ -74,6 +116,53 @@ const ageMessage =
 
 ```tsx
 // ここに各コンポーネントを記述してください
+type AvatarProps = {
+   src: string;
+   alt: string;
+}
+
+const Avatar: React.FC<AvatorProps> = ({src, alt}) => {
+   const style = {
+      width: '100px',
+      height: '100ox',
+      borderRadius: '50%',
+      objectFit: 'cover' as const
+   };
+
+   return <img src={src} alt={alt} style={style} />;
+};
+
+type UserInfoProps = {
+   name: string;
+   bio: string;
+};
+
+const UserInfo: React.FC<UserInfoProps> = ({name, bio}) => {
+   return (
+      <div>
+      <h2>{name}</h2>
+      <p>{bio}</p>
+      </div>
+   );
+};
+
+type ProfileCardProps = {
+   user: {
+      avatarSrc: string;
+      avatarAlt: string;
+      name: string;
+      bio: string;
+   };
+};
+
+const ProfileCard: React.FC<ProfileCardProps> = ({user}) => {
+   return (
+      <div className = "profile-card">
+      <Avatar src={user.avatarSrc} alt={user.avatarAlt} />
+      <UserInfo name={user.name} bio={user.bio} />
+      </div>
+   );
+};
 ```
 
 ## 問題5：実践的な課題
