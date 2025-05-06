@@ -10,6 +10,12 @@ import React from 'react';
 
 // ここに ProductCardProps 型を定義してください
 
+type ProducCardProps = {
+  name: string;
+  price: number;
+  isStock: boolean;
+};
+
 const ProductCard = ({ name, price, inStock }) => {
   return (
     <div className="product-card">
@@ -39,7 +45,11 @@ type UserProfileProps = {
   showDetails: boolean;
 };
 
-const UserProfile = ({ username, avatarUrl, showDetails }: UserProfileProps) => {
+const UserProfile = ({ 
+  username, 
+  avatarUrl = 'default-avatar.png', 
+  showDetails = false
+   }: UserProfileProps) => {
   return (
     <div className="user-profile">
       <img src={avatarUrl} alt={username} />
@@ -70,9 +80,30 @@ export default UserProfile;
 import React from 'react';
 
 // ここに PanelProps 型を定義してください
+type PanelProps = {
+  title: string;
+  children: React.ReactNode;
+};
 
-const Panel = () => {
-  // ここにコードを記述してください
+const Panel = ({title, children} : PanelProps) => {
+  return (
+    <div style={{
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      margin: '16px',
+      padding: '8px'
+    }}>
+    <h3 style ={{
+      marginTop: 0,
+      borderBottom: '1px solid #eee',
+      paddingBottom: '8px'
+    }}>
+    {tittle}
+    </h3>
+    <div>
+    {children}
+    </div>
+  );
 };
 
 export default Panel;
