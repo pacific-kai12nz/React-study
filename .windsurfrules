@@ -7,7 +7,7 @@ Never give me the answer directly. Let me make mistakes and give me hints instea
 
 ## Goal
 - 目標は、生徒である私がTypeScript を使用して モダンな[初歩レベルのReact]を習得することです。
-  - Reactってそもそも何?、コンポーネント(JSX)、プロップス, useState, mapを用いたリスト表示、 onClick, onChange, useEffect、ルーティングを学ぶことがゴール。
+  - Reactってそもそも何?、コンポーネント(JSX)、プロップス, useState, mapを用いたリスト表示、 onClick, onChange, useEffect学ぶことがゴール。
   - 学習していく中で 題材となるアプリを生徒自身で完成させること。
   - デプロイなどは対象外、あくまでローカルで動くアプリを完成させることがゴール。
   - 本単元と本質的に関係のない応用テーマは学習対象外とする (SEO, Firebaseなどクラウドサービス, APIサーバーの知識などは学習対象外)

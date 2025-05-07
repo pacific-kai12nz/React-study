@@ -27,7 +27,13 @@ const ProductList = () => {
   return (
     <div>
       <h2>商品リスト</h2>
-      {/* ここに商品リストを表示してください */}
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>
+            {product.name}: ¥{product.price.toLocaleString()}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -59,12 +65,17 @@ const products = [
 ];
 
 const ExpensiveProductList = () => {
-  // ここにフィルタリングとリスト表示のコードを記述してください
-
+  const expensiveProducts = products.filter(product => product.price >= 20000);
   return (
     <div>
       <h2>高額商品リスト（2万円以上）</h2>
-      {/* ここにフィルタリングされた商品リストを表示してください */}
+      <ul>
+        {expensiveProducts.map(product => (
+          <li key={product.id}>
+            {product.name}: ¥{product.price.toLocaleString()}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -95,14 +106,42 @@ const initialTodos = [
 ];
 
 const TodoList = () => {
-  // ここにuseStateとリスト表示、トグル機能のコードを記述してください
+  const [todos, setTodos] = useState(initialTodos);
+  const toggleComplete = (id) => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === id){
+          return {...todo, completed: !todo.completed};
+        }
+        return todo;
+      })
+    );
+  };
+
+  const incompleteTasks = todos.filter(todo => !todo.completed).length;
 
   return (
     <div>
       <h2>Todoリスト</h2>
-      {/* ここに未完了タスク数を表示してください */}
+      <p>未完了のタスク: {incompleteTasks}件</p>
       
-      {/* ここにTodoリストを表示してください */}
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            <input 
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleComplete(todo.id)}
+            />
+            <span style={{
+              textDecoration: todo.completed ? 'line-through' : 'none',
+              marginLeft: '8px'
+            }}>
+              {todo.text}
+            </span>
+          </li>
+      ))}
+      </ul>
     </div>
   );
 };
@@ -154,12 +193,23 @@ const categories = [
 ];
 
 const CategoryProductList = () => {
-  // ここにネストしたリスト表示のコードを記述してください
-
   return (
     <div>
       <h1>カテゴリ別商品リスト</h1>
-      {/* ここにカテゴリごとの商品リストを表示してください */}
+      <ul>
+        {categories.map(category => (
+          <li key={category.id}>
+            <h2>{category.name}</h2>
+            <ul>
+              {category.products.map(product => (
+                <li key={product.id}>
+                  {product.name}: ¥{product.price.toLocaleString()}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -190,16 +240,42 @@ const products = [
 ];
 
 // 商品アイテムコンポーネント
-// ここにProductItemコンポーネントを実装してください
+interface ProductItemProps {
+  product: {
+    id: number;
+    name: string;
+    price: number;
+    stock: number;
+  };
+}
+
+const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
+  const handleAddToCart = () => {
+    console.log(`${product.name}をカートに追加しました`);
+  };
+
+  return (
+    <li className="product-item">
+      <div>
+        <h3>{product.name}</h3>
+        <p>価格: ¥{product.price.toLocaleString()}</p>
+        <p>在庫: {product.stock}個</p>
+      </div>
+      <button onClick={handleAddToCart}>カートに追加</button>
+    </li>
+  );
+};
 
 // 商品リストコンポーネント 
 const ProductList = () => {
-  // ここにProductListコンポーネントを実装してください
-  
   return (
     <div>
       <h1>商品一覧</h1>
-      {/* ここに商品リストを表示してください */}
+      <ul className="product-list">
+      {products.map(product => (
+        <ProductItem key={product.id} product={product}/>
+      ))}
+      </ul>
     </div>
   );
 };
